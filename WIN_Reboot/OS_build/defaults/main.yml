@@ -1,0 +1,7 @@
+---
+VAR_WIN_Reboot:
+  reboot_requires: false
+  shutdown_requires: false
+#  restarted_services:
+#    - ALG
+#    - AppMgmt

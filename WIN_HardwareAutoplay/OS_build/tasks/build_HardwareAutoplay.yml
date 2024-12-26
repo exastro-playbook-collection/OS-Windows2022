@@ -1,0 +1,9 @@
+---
+- name: set Hardware Autoplay
+  win_regedit:
+    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers
+    name: DisableAutoplay
+    data: "{{ VAR_WIN_HardwareAutoplay.AutoplayHandlers }}"
+    type: dword
+  when:
+    - VAR_WIN_HardwareAutoplay.AutoplayHandlers is defined

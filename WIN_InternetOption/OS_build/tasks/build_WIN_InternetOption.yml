@@ -1,0 +1,7 @@
+---
+- name: Execute task. (build_WIN_InternetOption.yml)
+  win_regedit:
+    path: 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings'
+    name: 'SecureProtocols'
+    data: "{{ VAR_WIN_InternetOption.SecureProtocols }}"
+    type: dword

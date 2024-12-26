@@ -1,0 +1,101 @@
+---
+- name: Execute command. (Get-WindowsFeature)
+  win_shell: >-
+    Get-WindowsFeature -name {{ item.Name }} | \
+    Select-Object 'Name', 'Installed' | \
+    ForEach-Object -Begin{ \
+                     $map = @{}; \
+                   } \
+                   -Process{ \
+                     $map[$_.Name] = $_.Installed; \
+                   } \
+                   -End{$map} | \
+    ConvertTo-Json
+  register: result
+  check_mode: no
+  changed_when: false
+
+- name: set previous_items
+  set_fact:
+    previous_items: "{{ result.stdout | from_json }}"
+
+- name: get source when custom
+  block:
+    - name: check source path existed
+      win_stat:
+        path: "{{ item.InstallFile.SourcePath }}"
+      register: sourcepath_stat
+
+    - name: create directory if source path not existed
+      win_file:
+        path: "{{ item.InstallFile.SourcePath }}"
+        state: directory
+      when: sourcepath_stat.stat.exists == false
+
+    - name: get url
+      win_get_url:
+        url: "{{ item.InstallFile.InstallerURL }}/{{ item.InstallFile.InstallerFileName }}"
+        dest: "{{ item.InstallFile.SourcePath }}\\{{ item.InstallFile.InstallerFileName }}"
+      when:
+        - item.InstallFile.InstallerURL is not none
+        - item.InstallFile.InstallerURL != ''
+
+    - name: win copy
+      win_copy:
+        src: "{{ item.InstallFile.InstallerFileName }}"
+        dest: "{{ item.InstallFile.SourcePath }}\\{{ item.InstallFile.InstallerFileName }}"
+      when: item.InstallFile.InstallerURL is none
+  when:
+    - item.InstallFile is defined
+    - item.InstallFile.SourcePath is not none
+    - item.InstallFile.SourcePath != ''
+
+- name: Execute module. (win_feature install {{ item.Name }})
+  win_feature:
+    name: "{{ item.Name }}"
+    state: present
+    include_management_tools: "{{ VAR_OS_build_include_management_tools }}"
+  when:
+    - item.Name in previous_items
+    - previous_items[item.Name] != item.Value
+    - item.Value
+    - (item.InstallFile is not defined) or (item.InstallFile.SourcePath is none) or (item.InstallFile.SourcePath == '')
+
+- name: Execute module. (win_feature install {{ item.Name }})
+  win_feature:
+    name: "{{ item.Name }}"
+    source: "{{ item.InstallFile.SourcePath }}"
+    state: present
+    include_management_tools: "{{ VAR_OS_build_include_management_tools }}"
+  when:
+    - item.Name in previous_items
+    - previous_items[item.Name] != item.Value
+    - item.Value
+    - item.InstallFile is defined
+    - item.InstallFile.SourcePath is not none
+    - item.InstallFile.SourcePath != ''
+
+- name: Execute module. (win_feature uninstall {{ item.Name }})
+  win_feature:
+    name: "{{ item.Name }}"
+    state: absent
+  when:
+    - item.Name in previous_items
+    - previous_items[item.Name] != item.Value
+    - not item.Value
+
+- name: manage source path
+  block:
+    - name: before delete to check source path existed
+      win_stat:
+        path: "{{ item.InstallFile.SourcePath }}"
+      register: sourcepath_state
+
+    - name: delete source file
+      win_file:
+        path: "{{ item.InstallFile.SourcePath }}\\{{ item.InstallFile.InstallerFileName }}"
+        state: absent
+      when: sourcepath_state.stat.exists == true
+  when:
+    - item.InstallFile is defined
+    - item.InstallFile.SourcePath is not none

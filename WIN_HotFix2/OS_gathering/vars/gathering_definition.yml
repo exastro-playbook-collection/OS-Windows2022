@@ -1,0 +1,6 @@
+---
+command:
+  - Get-ChildItem HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall | %{Get-ItemProperty $_.PsPath} | ?{-not [string]::IsNullOrEmpty($_.KBNumber) -and $_.DisplayName} | sort displayname | select DisplayName,DisplayVersion,KBNumber,PatchType | ConvertTo-Json
+  - Get-HotFix | Select-Object 'HotFixID','Description' | ConvertTo-Json
+  - $Session = New-Object -ComObject Microsoft.Update.Session;$Searcher = $Session.CreateUpdateSearcher();$HistoryCount = $Searcher.GetTotalHistoryCount();if ($historyCount -gt "0"){$Searcher.QueryHistory(1,$HistoryCount) | Select-Object Title,Operation,ResultCode | ConvertTo-Json}
+  - Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages'| %{Get-ItemProperty $_.PsPath} | ?{(($_.CurrentState -eq 112) -or ($_.CurrentState -eq 128)) -and ($_.InstallName -match 'KB[0-9]{5,7}') } | Select-Object InstallName,CurrentState | ConvertTo-Json

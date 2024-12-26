@@ -1,0 +1,242 @@
+---
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.location }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.location is defined
+    - VAR_WIN_PrivateSetting.location is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.webcam }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.webcam is defined
+    - VAR_WIN_PrivateSetting.webcam is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.microphone }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.microphone is defined
+    - VAR_WIN_PrivateSetting.microphone is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userNotificationListener'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.userNotificationListener }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.userNotificationListener is defined
+    - VAR_WIN_PrivateSetting.userNotificationListener is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.userAccountInformation }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.userAccountInformation is defined
+    - VAR_WIN_PrivateSetting.userAccountInformation is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\contacts'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.contacts }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.contacts is defined
+    - VAR_WIN_PrivateSetting.contacts is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appointments'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.appointments }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.appointments is defined
+    - VAR_WIN_PrivateSetting.appointments is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCallHistory'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.phoneCallHistory }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.phoneCallHistory is defined
+    - VAR_WIN_PrivateSetting.phoneCallHistory is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\email'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.email }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.email is defined
+    - VAR_WIN_PrivateSetting.email is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userDataTasks'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.userDataTasks }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.userDataTasks is defined
+    - VAR_WIN_PrivateSetting.userDataTasks is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\chat'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.chat }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.chat is defined
+    - VAR_WIN_PrivateSetting.chat is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.radios }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.radios is defined
+    - VAR_WIN_PrivateSetting.radios is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\bluetoothSync'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.bluetoothSync }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.bluetoothSync is defined
+    - VAR_WIN_PrivateSetting.bluetoothSync is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appDiagnostics'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.appDiagnostics }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.appDiagnostics is defined
+    - VAR_WIN_PrivateSetting.appDiagnostics is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\documentsLibrary'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.documentsLibrary }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.documentsLibrary is defined
+    - VAR_WIN_PrivateSetting.documentsLibrary is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\picturesLibrary'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.picturesLibrary }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.picturesLibrary is defined
+    - VAR_WIN_PrivateSetting.picturesLibrary is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\videosLibrary'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.videosLibrary }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.videosLibrary is defined
+    - VAR_WIN_PrivateSetting.videosLibrary is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\broadFileSystemAccess'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.broadFileSystemAccess }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.broadFileSystemAccess is defined
+    - VAR_WIN_PrivateSetting.broadFileSystemAccess is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCall'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.phoneCall }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.phoneCall is defined
+    - VAR_WIN_PrivateSetting.phoneCall is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\downloadsFolder'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.downloadsFolder }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.downloadsFolder is defined
+    - VAR_WIN_PrivateSetting.downloadsFolder is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.graphicsCaptureWithoutBorder }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.graphicsCaptureWithoutBorder is defined
+    - VAR_WIN_PrivateSetting.graphicsCaptureWithoutBorder is not none
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic'
+    regedit_entry: 'Value'
+    regedit_value: "{{ VAR_WIN_PrivateSetting.graphicsCaptureProgrammatic }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_PrivateSetting.graphicsCaptureProgrammatic is defined
+    - VAR_WIN_PrivateSetting.graphicsCaptureProgrammatic is not none

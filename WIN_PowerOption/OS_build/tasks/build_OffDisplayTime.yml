@@ -1,0 +1,5 @@
+---
+- name: execute command(set OffDisplayTime)
+  raw: "powercfg /change monitor-timeout-ac {{ VAR_WIN_PowerOption.OffDisplayTime }}"
+  register: changed_result
+  changed_when: changed_result.rc != 0

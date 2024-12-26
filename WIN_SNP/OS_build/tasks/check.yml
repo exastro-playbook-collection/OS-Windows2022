@@ -1,0 +1,14 @@
+---
+- name: check param VAR_WIN_SNP.ReceiveSideScaling
+  fail:
+    msg: "The value of the parameter VAR_WIN_SNP.ReceiveSideScaling cannot be none."
+  when:
+    - VAR_WIN_SNP.ReceiveSideScaling is defined
+    - (VAR_WIN_SNP.ReceiveSideScaling is none) or (VAR_WIN_SNP.ReceiveSideScaling == '')
+
+- name: check param VAR_WIN_SNP.ReceiveSegmentCoalescing
+  fail:
+    msg: "The value of the parameter VAR_WIN_SNP.ReceiveSegmentCoalescing cannot be none."
+  when:
+    - VAR_WIN_SNP.ReceiveSegmentCoalescing is defined
+    - (VAR_WIN_SNP.ReceiveSegmentCoalescing is none) or (VAR_WIN_SNP.ReceiveSegmentCoalescing == '')

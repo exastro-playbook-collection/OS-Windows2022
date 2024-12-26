@@ -1,0 +1,8 @@
+---
+- name: check param VAR_WIN_AutoMount.NoAutoMount
+  fail:
+    msg: "When parameter VAR_WIN_AutoMount.NoAutoMount is defined and the value is not none, the value must be a number."
+  when:
+    - VAR_WIN_AutoMount.NoAutoMount is defined
+    - VAR_WIN_AutoMount.NoAutoMount is not none
+    - VAR_WIN_AutoMount.NoAutoMount is not number

@@ -1,0 +1,138 @@
+---
+- name: Execute command. (bcdedit get identifier)
+  win_shell: >-
+    Get-MpPreference | Select-Object 'DisableRealtimeMonitoring', 'MAPSReporting', 'SubmitSamplesConsent', 'EnableControlledFolderAccess', 'PUAProtection' | ConvertTo-Json
+  register: result_dump
+  check_mode: no
+  changed_when: false
+
+- name: Execute command. (DisableRealtimeMonitoring)
+  win_shell: Set-MpPreference -DisableRealtimeMonitoring ${{ VAR_WIN_Defender.DisableRealtimeMonitoring }}
+  vars:
+    dump: "{{ result_dump.stdout | from_json }}"
+  when:
+    - VAR_WIN_Defender.DisableRealtimeMonitoring is defined
+    - VAR_WIN_Defender.DisableRealtimeMonitoring != dump.DisableRealtimeMonitoring
+
+- name: Execute command. (MAPSReporting)
+  win_shell: Set-MpPreference -MAPSReporting {{ VAR_WIN_Defender.MAPSReporting }}
+  vars:
+    dump: "{{ result_dump.stdout | from_json }}"
+  when:
+    - VAR_WIN_Defender.MAPSReporting is defined
+    - VAR_WIN_Defender.MAPSReporting != dump.MAPSReporting
+
+- name: Execute command. (SubmitSamplesConsent)
+  win_shell: Set-MpPreference -SubmitSamplesConsent {{ VAR_WIN_Defender.SubmitSamplesConsent }}
+  vars:
+    dump: "{{ result_dump.stdout | from_json }}"
+  when:
+    - VAR_WIN_Defender.SubmitSamplesConsent is defined
+    - VAR_WIN_Defender.SubmitSamplesConsent != dump.SubmitSamplesConsent
+
+- name: Execute command. (EnableControlledFolderAccess)
+  win_shell: Set-MpPreference -EnableControlledFolderAccess {{ VAR_WIN_Defender.EnableControlledFolderAccess }}
+  vars:
+    dump: "{{ result_dump.stdout | from_json }}"
+  when:
+    - VAR_WIN_Defender.EnableControlledFolderAccess is defined
+    - VAR_WIN_Defender.EnableControlledFolderAccess != dump.EnableControlledFolderAccess
+
+- name: Execute command. (BlockApps)
+  win_shell: Set-MpPreference -PUAProtection {{ VAR_WIN_Defender.BlockApps }}
+  vars:
+    dump: "{{ result_dump.stdout | from_json }}"
+  when:
+    - VAR_WIN_Defender.BlockApps is defined
+    - VAR_WIN_Defender.BlockApps != dump.PUAProtection
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows Defender Security Center\Notifications'
+    regedit_entry: 'DisableEnhancedNotifications'
+    regedit_value: "{{ VAR_WIN_Defender.DisableEnhancedNotifications }}"
+    regedit_type: 'REG_DWORD'
+  when:
+    - VAR_WIN_Defender.DisableEnhancedNotifications is defined
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows Defender Security Center\Virus and threat protection'
+    regedit_entry: 'SummaryNotificationDisabled'
+    regedit_value: "{{ VAR_WIN_Defender.SummaryNotificationDisabled }}"
+    regedit_type: 'REG_DWORD'
+  when:
+    - VAR_WIN_Defender.SummaryNotificationDisabled is defined
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows Defender Security Center\Virus and threat protection'
+    regedit_entry: 'NoActionNotificationDisabled'
+    regedit_value: "{{ VAR_WIN_Defender.NoActionNotificationDisabled }}"
+    regedit_type: 'REG_DWORD'
+  when:
+    - VAR_WIN_Defender.NoActionNotificationDisabled is defined
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows Defender Security Center\Virus and threat protection'
+    regedit_entry: 'FilesBlockedNotificationDisabled'
+    regedit_value: "{{ VAR_WIN_Defender.FilesBlockedNotificationDisabled }}"
+    regedit_type: 'REG_DWORD'
+  when:
+    - VAR_WIN_Defender.FilesBlockedNotificationDisabled is defined
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile'
+    regedit_entry: 'DisableNotifications'
+    regedit_value: "{{ VAR_WIN_Defender.FireWallPublicProfileNotice }}"
+    regedit_type: 'REG_DWORD'
+  when:
+    - VAR_WIN_Defender.FireWallPublicProfileNotice is defined
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile'
+    regedit_entry: 'DisableNotifications'
+    regedit_value: "{{ VAR_WIN_Defender.FireWallStandardProfileNotice }}"
+    regedit_type: 'REG_DWORD'
+  when:
+    - VAR_WIN_Defender.FireWallStandardProfileNotice is defined
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile'
+    regedit_entry: 'DisableNotifications'
+    regedit_value: "{{ VAR_WIN_Defender.FireWallDomainProfileNotice }}"
+    regedit_type: 'REG_DWORD'
+  when:
+    - VAR_WIN_Defender.FireWallDomainProfileNotice is defined
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer'
+    regedit_entry: 'SmartScreenEnabled'
+    regedit_value: "{{ VAR_WIN_Defender.SmartScreenEnabled }}"
+    regedit_type: 'REG_SZ'
+  when:
+    - VAR_WIN_Defender.SmartScreenEnabled is defined
+
+- name: Execute task. (build_Registry_present.yml)
+  include_tasks: build_Registry_present.yml
+  vars:
+    regedit_key: 'HKCU:\SOFTWARE\Microsoft\Edge\SmartScreenPuaEnabled'
+    regedit_entry: ''
+    regedit_value: "{{ VAR_WIN_Defender.BlockDownloads }}"
+    regedit_type: 'REG_DWORD'
+  when:
+    - VAR_WIN_Defender.BlockDownloads is defined
+

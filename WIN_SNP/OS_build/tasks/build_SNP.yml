@@ -1,0 +1,8 @@
+---
+- name: set ReceiveSideScaling
+  win_command: "netsh int tcp set global rss={{ VAR_WIN_SNP.ReceiveSideScaling | lower }}"
+  when: VAR_WIN_SNP.ReceiveSideScaling is defined
+
+- name: set ReceiveSegmentCoalescing
+  win_command: "netsh int tcp set global rsc={{ VAR_WIN_SNP.ReceiveSegmentCoalescing | lower }}"
+  when: VAR_WIN_SNP.ReceiveSegmentCoalescing is defined

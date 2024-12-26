@@ -1,0 +1,24 @@
+---
+# modify the Visual effects
+- name: Check parameters and prepare beforehand
+  import_tasks: check.yml
+  when:
+    - VAR_WIN_VisualEffects is defined
+
+- name: modify the Visual effects main project
+  import_tasks: modify.yml
+  when:
+    - VAR_WIN_VisualEffects is defined
+
+- name: modify the Visual effects Subproject when type is custom
+  import_tasks: modify_custom.yml
+  when:
+    - VAR_WIN_VisualEffects.visual_type is defined
+    - VAR_WIN_VisualEffects.visual_type is not none
+    - VAR_WIN_VisualEffects.visual_type == 3
+    - VAR_WIN_VisualEffects.custom_value is defined
+
+- name: set Data Execution Prevention
+  import_tasks: modify_DataExecutionPrevention.yml
+  when:
+    - VAR_WIN_VisualEffects.DataExecutionPrevention is defined

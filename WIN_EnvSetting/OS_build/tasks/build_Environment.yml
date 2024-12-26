@@ -1,0 +1,25 @@
+---
+- name: Execute command. (reg query {{ environment_path }})
+  win_shell: >-
+    reg query '{{ environment_path }}' | \
+    ForEach-Object -Begin{ \
+                     $map = @{}; \
+                   } \
+                   -Process{ \
+                     If ($_  -match "^\s*(?<RegName>.*?)\s+REG_\S*\s+(?<RegValue>.*?)$") { \
+                       $map[$Matches.RegName] = $Matches.RegValue; \
+                     } \
+                   } \
+                   -End{$map} | \
+    ConvertTo-Json
+  register: result
+  check_mode: no
+  changed_when: false
+
+- name: Execute task. (build_Environment_item.yml)
+  include_tasks: build_Environment_item.yml
+  vars:
+    previous_items: "{{ result.stdout | from_json }}"
+  loop: "{{ environment_target | flatten(levels=1) }}"
+  loop_control:
+    loop_var: loop_item

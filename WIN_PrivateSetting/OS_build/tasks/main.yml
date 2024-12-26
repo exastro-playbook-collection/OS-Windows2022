@@ -1,0 +1,6 @@
+---
+- name: Execute task. (build_PrivateSetting.yml)
+  import_tasks: build_PrivateSetting.yml
+  when:
+    - VAR_WIN_PrivateSetting is defined
+

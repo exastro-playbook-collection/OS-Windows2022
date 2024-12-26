@@ -1,0 +1,7 @@
+---
+- name: set AllowTelemetry
+  win_regedit:
+    path: HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection
+    name: AllowTelemetry
+    data: "{{ VAR_WIN_FeedbackAndDiagnostics.AllowTelemetry }}"
+    type: dword

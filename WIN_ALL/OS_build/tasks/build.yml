@@ -1,0 +1,4 @@
+---
+- name: Execute role. (OS-Windows2022/{{ outer_item }}/OS_build)
+  import_role:
+    name: OS-Windows2022/{{ outer_item }}/OS_build

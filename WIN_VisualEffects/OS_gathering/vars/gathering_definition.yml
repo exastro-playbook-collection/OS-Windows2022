@@ -1,0 +1,9 @@
+---
+command:
+  - Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects'
+  - Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+  - Get-ItemProperty 'HKCU:\Control Panel\Desktop\WindowMetrics'
+  - Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\DWM'
+  - Get-ItemProperty 'HKCU:\Control Panel\Desktop'
+  - (Get-ItemProperty 'HKCU:\Control Panel\Desktop')| Select-Object  -ExpandProperty 'UserPreferencesMask'
+  - wmic OS Get DataExecutionPrevention_SupportPolicy

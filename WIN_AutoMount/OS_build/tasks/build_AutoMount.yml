@@ -1,0 +1,10 @@
+---
+- name: set Hardware Autoplay
+  win_regedit:
+    path: HKLM:\SYSTEM\ControlSet001\Services\mountmgr
+    name: NoAutoMount
+    data: "{{ VAR_WIN_AutoMount.NoAutoMount }}"
+    type: dword
+  when:
+    - VAR_WIN_AutoMount.NoAutoMount is defined
+    - VAR_WIN_AutoMount.NoAutoMount is not none

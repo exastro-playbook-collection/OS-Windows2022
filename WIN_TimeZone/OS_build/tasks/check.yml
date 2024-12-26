@@ -1,0 +1,7 @@
+---
+- name: set param PowerPlanSelection
+  fail:
+    msg: "The value of the parameter VAR_WIN_TimeZone.Id cannot be none."
+  when:
+    - VAR_WIN_TimeZone.Id is defined
+    - VAR_WIN_TimeZone.Id is none

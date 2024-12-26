@@ -1,0 +1,3 @@
+---
+command:
+  - Get-ItemProperty 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings' | Select-Object 'SecureProtocols' | ConvertTo-Json

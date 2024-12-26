@@ -1,0 +1,5 @@
+---
+- name: execute command(set Time Zone)
+  raw: "Set-TimeZone -Id '{{ VAR_WIN_TimeZone.Id }}'"
+  register: changed_result
+  changed_when: changed_result.rc != 0

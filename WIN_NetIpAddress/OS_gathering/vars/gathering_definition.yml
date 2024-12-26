@@ -1,0 +1,5 @@
+---
+command:
+  - Get-NetAdapter -includehidden | Select-Object 'ifDesc', 'InterfaceIndex' | ConvertTo-Json
+  - Get-NetIPAddress | Select-Object 'Type', 'Store', 'AddressFamily', 'AddressState', 'PrefixLength', 'InterfaceIndex', 'IPAddress', 'InterfaceAlias' | ConvertTo-Json
+  - Get-WmiObject Win32_NetworkAdapterConfiguration | Select-Object 'IPSubnet','IPAddress' | ConvertTo-Json

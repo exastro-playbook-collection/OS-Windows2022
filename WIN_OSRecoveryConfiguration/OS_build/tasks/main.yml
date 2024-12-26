@@ -1,0 +1,14 @@
+---
+- name: check param VAR_WIN_OSRecoveryConfiguration.BootSystem.timeout
+  fail:
+    msg: "VAR_WIN_OSRecoveryConfiguration.BootSystem.timeout should be a number between 0 and 999."
+  when:
+    - VAR_WIN_OSRecoveryConfiguration is defined
+    - VAR_WIN_OSRecoveryConfiguration.BootSystem is defined
+    - VAR_WIN_OSRecoveryConfiguration.BootSystem.timeout is defined
+    - (VAR_WIN_OSRecoveryConfiguration.BootSystem.timeout is not number) or (VAR_WIN_OSRecoveryConfiguration.BootSystem.timeout < 0) or (VAR_WIN_OSRecoveryConfiguration.BootSystem.timeout > 999)
+
+- name: Execute task. (build_OSRecoveryConfiguration.yml)
+  include_tasks: build_OSRecoveryConfiguration.yml
+  when:
+    - VAR_WIN_OSRecoveryConfiguration is defined

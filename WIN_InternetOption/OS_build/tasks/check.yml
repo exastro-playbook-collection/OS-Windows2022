@@ -1,0 +1,5 @@
+---
+- name: Check param SecureProtocols
+  fail:
+    msg: "The value of the parameter VAR_WIN_InternetOption.SecureProtocols must be defined and cannot be none or ''."
+  when: (VAR_WIN_InternetOption.SecureProtocols is undefined) or (VAR_WIN_InternetOption.SecureProtocols is none) or (VAR_WIN_InternetOption.SecureProtocols == '')

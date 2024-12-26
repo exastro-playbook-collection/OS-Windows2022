@@ -1,0 +1,7 @@
+---
+- name: set ExperiencesAdjust
+  win_regedit:
+    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy
+    name: TailoredExperiencesWithDiagnosticDataEnabled
+    data: "{{ VAR_WIN_FeedbackAndDiagnostics.ExperiencesAdjust }}"
+    type: dword

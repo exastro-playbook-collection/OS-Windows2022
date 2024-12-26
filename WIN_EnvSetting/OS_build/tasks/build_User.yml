@@ -1,0 +1,16 @@
+---
+- name: Execute task. (check.yml)
+  include_tasks: check.yml
+  vars:
+    environment_level: user
+    environment_target: "{{ VAR_WIN_EnvSetting.User }}"
+  when: VAR_WIN_EnvSetting.User is defined
+
+- name: Execute task. (build_Environment.yml)
+  import_tasks: build_Environment.yml
+  vars:
+    environment_level: user
+    environment_target: "{{ VAR_WIN_EnvSetting.User }}"
+    environment_path: 'HKCU\Environment'
+  when: VAR_WIN_EnvSetting.User is defined
+

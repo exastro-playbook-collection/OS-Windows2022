@@ -1,0 +1,26 @@
+---
+- name: Check parameter Name.
+  fail:
+    msg: "Name parameter is not defined. Confirm Name parameter."
+  when:
+    - item.Name is not defined
+
+- name: Check parameter Value. ({{ item.Name }})
+  fail:
+    msg: "Value parameter is not defined. Confirm Value parameter."
+  when:
+    - item.Value is not defined
+
+- name: Check parameter Value. ({{ item.Name }})
+  fail:
+    msg: "Invalid value is set for the Value parameter({{ item.Value }}). Confirm Value parameter."
+  when:
+    - (item.Value | string) != 'True'
+    - (item.Value | string) != 'False'
+
+- name: checke parameter InstallFile
+  fail:
+    msg: "Parameter SourcePath or InstallerFileName or InstallerURL is not defined. Confirm parameter."
+  when:
+    - item.InstallFile is defined
+    - (item.InstallFile.SourcePath is not defined) or (item.InstallFile.InstallerFileName is not defined) or (item.InstallFile.InstallerURL is not defined)

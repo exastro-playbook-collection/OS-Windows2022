@@ -1,0 +1,210 @@
+---
+# not check `COMPLIANCE020201` by ansible-lint
+- name: set IconsOnly value
+  win_regedit:
+    path: "{{ location_Advanced }}"
+    name: "IconsOnly"
+    data: "{{ ((VAR_WIN_VisualEffects.custom_value.IconsOnly | default('no')) | lower == 'yes') | ternary('0','1') }}"
+    type: dword
+
+
+- name: set ListviewAlphaSelect value
+  win_regedit:
+    path: "{{ location_Advanced }}"
+    name: "ListviewAlphaSelect"
+    data: "{{ ((VAR_WIN_VisualEffects.custom_value.ListviewAlphaSelect | default('no')) | lower == 'yes') | ternary('1','0') }}"
+    type: dword
+
+
+- name: set ListviewShadow value
+  win_regedit:
+    path: "{{ location_Advanced }}"
+    name: "ListviewShadow"
+    data: "{{ ((VAR_WIN_VisualEffects.custom_value.ListviewShadow | default('no')) | lower == 'yes') | ternary('1','0') }}"
+    type: dword
+
+
+- name: set TaskbarAnimations value
+  win_regedit:
+    path: "{{ location_Advanced }}"
+    name: "TaskbarAnimations"
+    data: "{{ ((VAR_WIN_VisualEffects.custom_value.TaskbarAnimations | default('no')) | lower == 'yes') | ternary('1','0') }}"
+    type: dword
+
+
+- name: set MinAnimate value
+  win_regedit:
+    path: "{{ location_WindowMetrics }}"
+    name: "MinAnimate"
+    data: "{{ ((VAR_WIN_VisualEffects.custom_value.MinAnimate | default('no')) | lower == 'yes') | ternary('1','0') }}"
+    type: string
+
+
+- name: set EnableAeroPeek value
+  win_regedit:
+    path: "{{ location_DWM }}"
+    name: "EnableAeroPeek"
+    data: "{{ ((VAR_WIN_VisualEffects.custom_value.EnableAeroPeek | default('no')) | lower == 'yes') | ternary('1','0') }}"
+    type: dword
+
+
+- name: set AlwaysHibernateThumbnails value
+  win_regedit:
+    path: "{{ location_DWM }}"
+    name: "AlwaysHibernateThumbnails"
+    data: "{{ ((VAR_WIN_VisualEffects.custom_value.AlwaysHibernateThumbnails | default('no')) | lower == 'yes') | ternary('1','0') }}"
+    type: dword
+
+
+- name: set FontSmoothing value
+  win_regedit:
+    path: "{{ location_Desktop }}"
+    name: "FontSmoothing"
+    data: "{{ ((VAR_WIN_VisualEffects.custom_value.FontSmoothing | default('no')) | lower == 'yes') | ternary('2','0') }}"
+    type: string
+
+
+- name: set DragFullWindows value
+  win_regedit:
+    path: "{{ location_Desktop }}"
+    name: "DragFullWindows"
+    data: "{{ ((VAR_WIN_VisualEffects.custom_value.DragFullWindows | default('no')) | lower == 'yes') | ternary('1','0') }}"
+    type: string
+
+
+- name: Set temporary variables for custom
+  set_fact:
+    data1_list:
+      - "{{ ((VAR_WIN_VisualEffects.custom_value.smooth | default('no')) | lower == 'yes') | ternary('1','0') }}"
+      - "{{ ((VAR_WIN_VisualEffects.custom_value.slide | default('no')) | lower == 'yes') | ternary('1','0') }}"
+      - "{{ ((VAR_WIN_VisualEffects.custom_value.menu_view | default('no')) | lower == 'yes') | ternary('1','0') }}"
+      - '0'
+    data2_list:
+      - '0'
+      - '0'
+      - "{{ ((VAR_WIN_VisualEffects.custom_value.mouse_shadows | default('no')) | lower == 'yes') | ternary('1','0') }}"
+      - '1'
+    data3_list:
+      - "{{ ((VAR_WIN_VisualEffects.custom_value.fade_view | default('no')) | lower == 'yes') | ternary('1','0') }}"
+      - "{{ ((VAR_WIN_VisualEffects.custom_value.fade_menu | default('no')) | lower == 'yes') | ternary('1','0') }}"
+      - '1'
+      - '0'
+    data4_list:
+      - '0'
+      - "{{ ((VAR_WIN_VisualEffects.custom_value.window_shadows | default('no')) | lower == 'yes') | ternary('1','0') }}"
+      - '1'
+      - '1'
+    data5_list:
+      - '0'
+      - '0'
+      - "{{ ((VAR_WIN_VisualEffects.custom_value.window_animation | default('no')) | lower == 'yes') | ternary('1','0') }}"
+      - '0'
+
+- name: Set temporary variables for custom 1
+  set_fact:
+    num_data1: "{{ data1_list | join | int(base=2) }}"
+    num_data2: "{{ data2_list | join | int(base=2) }}"
+    num_data3: "{{ data3_list | join | int(base=2) }}"
+    num_data4: "{{ data4_list | join | int(base=2) }}"
+    num_data5: "{{ data5_list | join | int(base=2) }}"
+
+- name: Conversion the number to letter
+  block:
+  - name: Conversion the number to letter for num_data1
+    set_fact:
+      data_value1: "{% if num_data1 == '10' %} A {% endif %} {% if num_data1 == '11' %} B {% endif %}{% if num_data1 == '12' %} C {% endif %}{% if num_data1 == '13' %} D {% endif %}{% if num_data1 == '14' %} E {% endif %} {% if num_data1 == '15' %} F {% endif %}"
+    when: num_data1 == '10' or num_data1 == '11' or num_data1 == '12' or num_data1 == '13' or num_data1 == '14' or num_data1 == '15'
+  - name: Conversion the number to letter for num_data1
+    set_fact:
+      data_value1: "{{ num_data1 }}"
+    when:
+      - num_data1 != '10'
+      - num_data1 != '11'
+      - num_data1 != '12'
+      - num_data1 != '13'
+      - num_data1 != '14'
+      - num_data1 != '15'
+
+  - name: Conversion the number to letter for num_data2
+    set_fact:
+      data_value2: "{% if num_data2 == '10' %} A {% endif %} {% if num_data2 == '11' %} B {% endif %}{% if num_data2 == '12' %} C {% endif %}{% if num_data2 == '13' %} D {% endif %}{% if num_data2 == '14' %} E {% endif %} {% if num_data2 == '15' %} F {% endif %}"
+    when: num_data2 == '10' or num_data2 == '11' or num_data2 == '12' or num_data2 == '13' or num_data2 == '14' or num_data2 == '15'
+  - name: Conversion the number to letter for num_data2
+    set_fact:
+      data_value2: "{{ num_data2 }}"
+    when:
+      - num_data2 != '10'
+      - num_data2 != '11'
+      - num_data2 != '12'
+      - num_data2 != '13'
+      - num_data2 != '14'
+      - num_data2 != '15'
+
+  - name: Conversion the number to letter for num_data3
+    set_fact:
+      data_value3: "{% if num_data3 == '10' %} A {% endif %} {% if num_data3 == '11' %} B {% endif %}{% if num_data3 == '12' %} C {% endif %}{% if num_data3 == '13' %} D {% endif %}{% if num_data3 == '14' %} E {% endif %} {% if num_data3 == '15' %} F {% endif %}"
+    when: num_data3 == '10' or num_data3 == '11' or num_data3 == '12' or num_data3 == '13' or num_data3 == '14' or num_data3 == '15'
+  - name: Conversion the number to letter for num_data3
+    set_fact:
+      data_value3: "{{ num_data3 }}"
+    when:
+      - num_data3 != '10'
+      - num_data3 != '11'
+      - num_data3 != '12'
+      - num_data3 != '13'
+      - num_data3 != '14'
+      - num_data3 != '15'
+
+  - name: Conversion the number to letter for num_data4
+    set_fact:
+      data_value4: "{% if num_data4 == '10' %} A {% endif %} {% if num_data4 == '11' %} B {% endif %}{% if num_data4 == '12' %} C {% endif %}{% if num_data4 == '13' %} D {% endif %}{% if num_data4 == '14' %} E {% endif %} {% if num_data4 == '15' %} F {% endif %}"
+    when: num_data4 == '10' or num_data4 == '11' or num_data4 == '12' or num_data4 == '13' or num_data4 == '14' or num_data4 == '15'
+  - name: Conversion the number to letter for num_data4
+    set_fact:
+      data_value4: "{{ num_data4 }}"
+    when:
+      - num_data4 != '10'
+      - num_data4 != '11'
+      - num_data4 != '12'
+      - num_data4 != '13'
+      - num_data4 != '14'
+      - num_data4 != '15'
+
+  - name: Conversion the number to letter for num_data5
+    set_fact:
+      data_value5: "{% if num_data5 == '10' %} A {% endif %} {% if num_data5 == '11' %} B {% endif %}{% if num_data5 == '12' %} C {% endif %}{% if num_data5 == '13' %} D {% endif %}{% if num_data5 == '14' %} E {% endif %} {% if num_data5 == '15' %} F {% endif %}"
+    when: num_data5 == '10' or num_data5 == '11' or num_data5 == '12' or num_data5 == '13' or num_data5 == '14' or num_data5 == '15'
+  - name: Conversion the number to letter for num_data5
+    set_fact:
+      data_value5: "{{ num_data5 }}"
+    when:
+      - num_data5 != '10'
+      - num_data5 != '11'
+      - num_data5 != '12'
+      - num_data5 != '13'
+      - num_data5 != '14'
+      - num_data5 != '15'
+
+  - name: Combined radix
+    set_fact:
+      radix1: "{{ ['9',data_value1.strip()] | join('') }}"
+      radix2: "{{ [data_value2.strip(),data_value3.strip()] | join('') }}"
+      radix3: "{{ ['0',data_value4.strip()] | join('') }}"
+      radix4: "80"
+      radix5: "{{ ['1',data_value5.strip()] | join('') }}"
+
+  - name: set a radix string
+    set_fact:
+      str_radix: "{{[radix1,radix2,radix3,radix4,radix5,'00','00','00'] | join(',') }}"
+
+  - name: set the regedit value
+    set_fact:
+      regedit_data: "{{['hex:',str_radix] | join('') }}"
+
+  - name: set Visual_effects UserPreferencesMask
+    win_regedit:
+      path: "{{ location_Desktop }}"
+      name: "UserPreferencesMask"
+      data: "{{ regedit_data }}"
+      type: binary
+    register: ret_custom_reg

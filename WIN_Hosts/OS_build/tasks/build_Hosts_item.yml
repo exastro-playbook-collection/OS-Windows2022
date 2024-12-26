@@ -1,0 +1,16 @@
+---
+- name:  "Write file. ({{ item.path }})"
+  win_template:
+    src: hosts.j2
+    dest: "{{ item.path }}"
+    output_encoding: Shift-JIS
+  when: item.file is undefined or item.file is none or item.file == ''
+
+- name:  "Copy file. ({{ item.path }})"
+  win_copy:
+    src: "{{ item.file }}"
+    dest: "{{ item.path }}"
+  when:
+  - item.file is defined
+  - item.file is not none
+  - item.file != ''

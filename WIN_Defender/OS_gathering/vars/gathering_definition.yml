@@ -1,0 +1,11 @@
+---
+command:
+  - Get-MpPreference | Select-Object 'DisableRealtimeMonitoring', 'MAPSReporting', 'SubmitSamplesConsent', 'EnableControlledFolderAccess', 'PUAProtection' | ConvertTo-Json
+  - Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows Defender Security Center\Notifications' | Select-Object 'DisableEnhancedNotifications' | ConvertTo-Json
+  - Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows Defender Security Center\Virus and threat protection' | Select-Object 'SummaryNotificationDisabled', 'NoActionNotificationDisabled', 'FilesBlockedNotificationDisabled' | ConvertTo-Json
+  - Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile' | Select-Object 'DisableNotifications' | ConvertTo-Json
+  - Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile' | Select-Object 'DisableNotifications' | ConvertTo-Json
+  - Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile' | Select-Object 'DisableNotifications' | ConvertTo-Json
+  - Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' | Select-Object 'SmartScreenEnabled' | ConvertTo-Json
+  - Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Edge\SmartScreenPuaEnabled' | Select-Object '(Default)' | ConvertTo-Json
+

@@ -1,0 +1,32 @@
+---
+- name: check param VAR_WIN_VisualEffects.visual_type
+  fail:
+    msg: "When parameter VAR_WIN_VisualEffects.visual_type is defined and the value is not none, the value must be a number."
+  when:
+    - VAR_WIN_VisualEffects.visual_type is defined
+    - VAR_WIN_VisualEffects.visual_type is not none
+    - VAR_WIN_VisualEffects.visual_type is not number
+
+- name: check param VAR_WIN_VisualEffects.custom_value
+  fail:
+    msg: "The value of the parameter {{ item.key }} cannot be none and the value must be yes or no."
+  with_dict: "{{ VAR_WIN_VisualEffects.custom_value }}"
+  when:
+    - VAR_WIN_VisualEffects.custom_value is defined
+    - VAR_WIN_VisualEffects.custom_value is not none
+    - (item.value is none) or (item.value.upper() != 'YES' and item.value.upper() != 'NO')
+
+- name: check param VAR_WIN_VisualEffects.DataExecutionPrevention
+  fail:
+    msg: "The value of the parameter VAR_WIN_VisualEffects.DataExecutionPrevention cannot be none and the value must be a number."
+  when:
+    - VAR_WIN_VisualEffects.DataExecutionPrevention is defined
+    - (VAR_WIN_VisualEffects.DataExecutionPrevention is none) or (VAR_WIN_VisualEffects.DataExecutionPrevention is not number)
+
+- name: Defining registry path variables
+  set_fact:
+    location_VisualEffects: 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects'
+    location_Advanced: 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+    location_WindowMetrics: 'HKCU:\Control Panel\Desktop\WindowMetrics'
+    location_DWM: 'HKCU:\Software\Microsoft\Windows\DWM'
+    location_Desktop: 'HKCU:\Control Panel\Desktop'

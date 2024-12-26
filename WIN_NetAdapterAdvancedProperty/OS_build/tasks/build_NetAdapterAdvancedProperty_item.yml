@@ -1,0 +1,29 @@
+---
+- name: Execute command. (Get-NetAdapterAdvancedProperty {{ ifDesc }})
+  win_shell: >-
+    Get-NetAdapterAdvancedProperty -InterfaceDescription "{{ ifDesc }}" | \
+    Where { $_.DisplayName -eq "{{ item.key }}" } | \
+    Select-Object "DisplayValue" | \
+    ConvertTo-Json
+  register: result
+  check_mode: no
+  changed_when: false
+
+- name: Check parameter property_name. ({{ item.key }})
+  fail:
+    msg: "Invalid value is set for the property_name parameter({{ item.key }}). Confirm property_name parameter."
+  when:
+    - result.stdout | length == 0
+
+- name: Execute command. (Set-NetAdapterAdvancedProperty {{ item.key }})
+  win_shell: >-
+    Set-NetAdapterAdvancedProperty \
+      -InterfaceDescription "{{ ifDesc }}" \
+      -DisplayName "{{ item.key }}" \
+      -DisplayValue "{{ item.value }}" \
+      -NoRestart \
+      -ErrorAction Stop
+  vars:
+    result_value: "{{ result.stdout | from_json }}"
+  when:
+    - item.value != result_value.DisplayValue

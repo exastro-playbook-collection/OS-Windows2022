@@ -1,0 +1,17 @@
+---
+- name: set Data Execution Prevention
+  win_command: 'bcdedit /set nx OptIn'
+  when:
+    - VAR_WIN_VisualEffects.DataExecutionPrevention is defined
+    - VAR_WIN_VisualEffects.DataExecutionPrevention == 2
+  register: _command
+
+- name: set Data Execution Prevention
+  win_command: 'bcdedit /set nx OptOut'
+  when:
+    - VAR_WIN_VisualEffects.DataExecutionPrevention is defined
+    - VAR_WIN_VisualEffects.DataExecutionPrevention == 3
+  register: _command
+
+- name: reboot
+  win_reboot:

@@ -1,0 +1,46 @@
+---
+- name: set Control Panel Display Method to category
+  win_regedit:
+    path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel
+    name: StartupPage
+    data: 0
+    type: dword
+  when:
+    - _DisplayMethod is defined
+    - _DisplayMethod == 'CATEGORY'
+
+- name: set Control Panel Display Method to large icon
+  block:
+    - name: set regedit AllItemsIconView for large icon
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel
+        name: AllItemsIconView
+        data: 0
+        type: dword
+    - name: set regedit StartupPage for large icon
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel
+        name: StartupPage
+        data: 1
+        type: dword
+  when:
+    - _DisplayMethod is defined
+    - _DisplayMethod  == 'LARGE'
+
+- name: set Control Panel Display Method to small icon
+  block:
+    - name: set regedit AllItemsIconView for small icon
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel
+        name: AllItemsIconView
+        data: 1
+        type: dword
+    - name: set regedit StartupPage for small icon
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel
+        name: StartupPage
+        data: 1
+        type: dword
+  when:
+    - _DisplayMethod is defined
+    - _DisplayMethod  == 'SMALL'

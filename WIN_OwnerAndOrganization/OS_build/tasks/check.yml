@@ -1,0 +1,36 @@
+---
+- name: check param VAR_WIN_OwnerAndOrganization.OwnerAndOrganization32
+  block:
+    - name: check param VAR_WIN_OwnerAndOrganization.OwnerAndOrganization32.RegisteredOrganization
+      fail:
+        msg: "The value of the parameter VAR_WIN_OwnerAndOrganization.OwnerAndOrganization32.RegisteredOrganization cannot be none."
+      when:
+        - VAR_WIN_OwnerAndOrganization.OwnerAndOrganization32.RegisteredOrganization is defined
+        - VAR_WIN_OwnerAndOrganization.OwnerAndOrganization32.RegisteredOrganization is none
+
+    - name: check param VAR_WIN_OwnerAndOrganization.OwnerAndOrganization32.RegisteredOwner
+      fail:
+        msg: "The value of the parameter VAR_WIN_OwnerAndOrganization.OwnerAndOrganization32.RegisteredOwner cannot be none."
+      when:
+        - VAR_WIN_OwnerAndOrganization.OwnerAndOrganization32.RegisteredOwner is defined
+        - VAR_WIN_OwnerAndOrganization.OwnerAndOrganization32.RegisteredOwner is none
+  when:
+    - VAR_WIN_OwnerAndOrganization.OwnerAndOrganization32 is defined
+
+- name: check param VAR_WIN_OwnerAndOrganization.OwnerAndOrganization64
+  block:
+    - name: check param VAR_WIN_OwnerAndOrganization.OwnerAndOrganization64.RegisteredOrganization
+      fail:
+        msg: "The value of the parameter VAR_WIN_OwnerAndOrganization.OwnerAndOrganization64.RegisteredOrganization cannot be none."
+      when:
+        - VAR_WIN_OwnerAndOrganization.OwnerAndOrganization64.RegisteredOrganization is defined
+        - VAR_WIN_OwnerAndOrganization.OwnerAndOrganization64.RegisteredOrganization is none
+
+    - name: check param VAR_WIN_OwnerAndOrganization.OwnerAndOrganization64.RegisteredOwner
+      fail:
+        msg: "The value of the parameter VAR_WIN_OwnerAndOrganization.OwnerAndOrganization64.RegisteredOwner cannot be none."
+      when:
+        - VAR_WIN_OwnerAndOrganization.OwnerAndOrganization64.RegisteredOwner is defined
+        - VAR_WIN_OwnerAndOrganization.OwnerAndOrganization64.RegisteredOwner is none
+  when:
+    - VAR_WIN_OwnerAndOrganization.OwnerAndOrganization64 is defined

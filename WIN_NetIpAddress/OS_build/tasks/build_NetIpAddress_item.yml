@@ -1,0 +1,50 @@
+---
+- name: Execute command. (New-NetIPAddress {{ item.ipaddr }})
+  win_shell: >-
+    NEW-NetIPAddress -InterfaceIndex {{ ifIndex }} \
+                     -AddressFamily {{ item.AddressFamily }} \
+                     -IPAddress "{{ item.ipaddr | regex_replace('%.*$') }}" \
+                     -PrefixLength {{ item.prefix }} \
+                     -Type {{ item.Type }}
+  when:
+    - item.Action == 'present'
+    - ipinfo is not defined or
+      ipinfo.IPAddress is not defined
+
+- name: Execute command. (Remove-NetIPAddress {{ item.ipaddr }})
+  win_shell: >-
+    Remove-NetIPAddress -InterfaceIndex {{ ifIndex }} \
+                        -IPAddress "{{ item.ipaddr }}" \
+                        -PrefixLength {{ item.prefix }} \
+                        -confirm:$false
+  when:
+    - item.Action == 'absent'
+    - ipinfo is defined
+    - ipinfo.IPAddress is defined
+    - item.ipaddr == ipinfo.IPAddress
+    - item.prefix == ipinfo.PrefixLength
+
+- name: Set mask
+  block:
+    - name: Execute command. (netsh {{ item.mask }})
+      win_shell: >-
+        netsh Interface ip Set Address Name="{{ item.connectionName }}" \
+                                       static \
+                                       address="{{ item.ipaddr }}" \
+                                       mask="{{ item.mask }}"
+
+    - name: Execute command to set default gateway
+      win_shell: >-
+        New-NetRoute -InterfaceIndex "{{ ifIndex }}" -DestinationPrefix '0.0.0.0/0'  -NextHop "{{ _gateway_item }}"
+      with_items: "{{ adapterconf.DefaultIPGateway }}"
+      loop_control:
+        loop_var: _gateway_item
+      when:
+        - adapterconf is defined
+        - adapterconf.DefaultIPGateway is not none
+  when:
+    - item.Action == 'present'
+    - item.AddressFamily == 2
+    - item.connectionName is defined
+    - item.mask is defined
+    - adapterconf is not defined or item.mask != adapterconf.IPSubnet[0]

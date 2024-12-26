@@ -1,0 +1,33 @@
+---
+- name: Restart service
+  win_service:
+    name: "{{ item }}"
+    state: restarted
+  when:
+    - item is not none
+    - item != ""
+  with_items: "{{ VAR_WIN_Reboot.restarted_services }}"
+
+- name: Run windows reboot command
+  listen: handlers_reboot
+  win_reboot:
+  changed_when: true
+
+- name: Wait for ssh connection down
+  listen: handlers_reboot
+  wait_for_connection:
+
+- name: Wait for ssh connection up
+  listen: handlers_reboot
+  wait_for_connection:
+
+- name: Run windows shutdown command
+  listen: handlers_shutdown
+  win_command: shutdown -s -t 0
+  async: 30
+  poll: 0
+  changed_when: true
+
+- name: Wait for ssh connection shutdown
+  listen: handlers_shutdown
+  wait_for_connection:

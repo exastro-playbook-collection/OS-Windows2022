@@ -1,0 +1,9 @@
+---
+VAR_OS_build_include_management_tools: true
+# VAR_WIN_WindowsFeature:
+  # - Name:
+    # Value:
+    # InstallFile:
+      # SourcePath:
+      # InstallerFileName:
+      # InstallerURL:

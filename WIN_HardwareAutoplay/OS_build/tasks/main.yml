@@ -1,0 +1,10 @@
+---
+- name: Execute task. (check.yml)
+  include_tasks: check.yml
+  when:
+    - VAR_WIN_HardwareAutoplay is defined
+
+- name: Execute task. (build_HardwareAutoplay.yml)
+  import_tasks: build_HardwareAutoplay.yml
+  when:
+    - VAR_WIN_HardwareAutoplay is defined

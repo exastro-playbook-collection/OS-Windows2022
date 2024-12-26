@@ -1,0 +1,8 @@
+---
+- name: set PowerPlanSelection
+  import_tasks: build_PowerPlanSelection.yml
+  when: VAR_WIN_PowerOption.PowerPlanSelection is defined
+
+- name: set OffDisplayTime
+  import_tasks: build_OffDisplayTime.yml
+  when: VAR_WIN_PowerOption.OffDisplayTime is defined

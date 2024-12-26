@@ -1,0 +1,25 @@
+---
+- name: Change Environment. (win_path {{ env_level }} {{ env_name }} update(present))
+  win_path:
+    elements: >-
+      {{ item }}
+    name: "{{ env_name }}"
+    scope: "{{ env_level }}"
+    state: present
+  loop: "{{ env_value_list }}"
+  when:
+    - item != ""
+    - item not in previous_env_value_list
+
+- name: Change Environment. (win_path {{ env_level }} {{ env_name }} update(absent))
+  win_path:
+    elements: >-
+      {{ item }}
+    name: "{{ env_name }}"
+    scope: "{{ env_level }}"
+    state: absent
+  loop: "{{ previous_env_value_list }}"
+  when:
+    - item != ""
+    - item not in env_value_list
+

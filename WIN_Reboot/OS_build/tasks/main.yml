@@ -1,0 +1,36 @@
+---
+- name: Restart service
+  block:
+    - name: Restart service
+      set_fact:
+        _msg: "Restart service"
+      changed_when: true
+      notify: Restart service
+
+    - meta: flush_handlers
+  when:
+    - VAR_WIN_Reboot.restarted_services is defined
+    - VAR_WIN_Reboot.restarted_services is not none
+    - VAR_WIN_Reboot.restarted_services != ''
+
+- name: reboot OS
+  block:
+    - name: reboot OS
+      set_fact:
+        _msg: "reboot OS"
+      changed_when: true
+      notify: handlers_reboot
+
+    - meta: flush_handlers
+  when:
+    - VAR_WIN_Reboot.reboot_requires is defined
+    - VAR_WIN_Reboot.reboot_requires
+
+- name: shutdown OS
+  set_fact:
+    _msg: "shutdown OS"
+  changed_when: true
+  notify: handlers_shutdown
+  when:
+    - VAR_WIN_Reboot.shutdown_requires is defined
+    - VAR_WIN_Reboot.shutdown_requires

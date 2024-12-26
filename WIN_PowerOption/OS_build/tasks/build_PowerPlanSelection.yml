@@ -1,0 +1,30 @@
+---
+- name: set BALANCED
+  block:
+    - name: get BALANCED GUID
+      raw: "powercfg /ALIASES | Select-String SCHEME_BALANCED"
+      register: _BalancedGUID
+
+    - name: execute command(set BALANCED)
+      raw: "powercfg /s {{ _BalancedGUID.stdout | replace('SCHEME_BALANCED','') | trim }}"
+  when: VAR_WIN_PowerOption.PowerPlanSelection == 1
+
+- name: set SCHEME_MIN
+  block:
+    - name: get SCHEME_MIN GUID
+      raw: "powercfg /ALIASES | Select-String SCHEME_MIN"
+      register: _SchemeMinGUID
+
+    - name: execute command(set SCHEME_MIN)
+      raw: "powercfg /s {{ _SchemeMinGUID.stdout | replace('SCHEME_MIN','') | trim }}"
+  when: VAR_WIN_PowerOption.PowerPlanSelection == 2
+
+- name: set SCHEME_MAX
+  block:
+    - name: get SCHEME_MAX GUID
+      raw: "powercfg /ALIASES | Select-String SCHEME_MAX"
+      register: _SchemeMaxGUID
+
+    - name: execute command(set SCHEME_MAX)
+      raw: "powercfg /s {{ _SchemeMaxGUID.stdout | replace('SCHEME_MAX','') | trim }}"
+  when: VAR_WIN_PowerOption.PowerPlanSelection == 3

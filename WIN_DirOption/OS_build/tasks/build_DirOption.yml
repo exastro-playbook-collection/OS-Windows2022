@@ -1,0 +1,27 @@
+---
+- name: set key CheckedValue
+  win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Folder\Hidden\SHOWALL
+    name: CheckedValue
+    data: "{{ VAR_WIN_DirOption.HiddenCheckedValue }}"
+    type: dword
+  when:
+  - VAR_WIN_DirOption.HiddenCheckedValue is defined
+
+- name: set key Hidden
+  win_regedit:
+    path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+    name: Hidden
+    data: "{{ VAR_WIN_DirOption.Hidden }}"
+    type: dword
+  when:
+    - VAR_WIN_DirOption.Hidden is defined
+
+- name: set HideFileExt
+  win_regedit:
+    path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+    name: HideFileExt
+    data: "{{ VAR_WIN_DirOption.HideFileExt }}"
+    type: dword
+  when:
+    - VAR_WIN_DirOption.HideFileExt is defined

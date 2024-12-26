@@ -1,0 +1,5 @@
+---
+command:
+  - powercfg /getactivescheme
+  - powercfg /ALIASES
+  - $result = powercfg /query |Out-String;$resultSplit = $result -split '\r\n\r\n';$resultSplit|Select-String 'VIDEOIDLE'

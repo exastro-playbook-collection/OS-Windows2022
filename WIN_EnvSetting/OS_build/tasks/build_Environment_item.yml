@@ -1,0 +1,31 @@
+---
+- name: Change Environment. (win_environment {{ environment_level }} present {{ loop_item.Name }})
+  win_environment:
+    level: "{{ environment_level }}"
+    name: "{{ loop_item.Name }}"
+    state: present
+    value: "{{ loop_item.Value }}"
+  when:
+    - loop_item.Value | regex_search("^(?!.*%[^\s%]+%).*$")
+    - loop_item.Action == "present"
+
+- name: Execute task. (build_Environment_path.yml)
+  include_tasks: build_Environment_path.yml
+  vars:
+    env_level: "{{ environment_level }}"
+    env_name: "{{ loop_item.Name }}"
+    env_value_list: "{{ loop_item.Value.split(';') }}"
+    previous_env_value: "{{ previous_items[loop_item.Name] | default('') }}"
+    previous_env_value_list: "{{ previous_env_value.split(';') if previous_env_value != '' else [] }}"
+  when:
+    - loop_item.Value | regex_search("^(?=.*%[^\s%]+%).*$")
+    - loop_item.Action == "present"
+
+- name: Change Environment. (win_environment {{ environment_level }} absent {{ loop_item.Name }})
+  win_environment:
+    level: "{{ environment_level }}"
+    name: "{{ loop_item.Name }}"
+    state: absent
+  when:
+    - loop_item.Action == "absent"
+

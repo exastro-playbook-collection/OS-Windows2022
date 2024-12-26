@@ -1,0 +1,10 @@
+---
+- name: Check param SecureProtocols
+  import_tasks: check.yml
+  when:
+    - VAR_WIN_InternetOption is defined
+
+- name: Execute task. (build_WIN_InternetOption.yml)
+  import_tasks: build_WIN_InternetOption.yml
+  when:
+    - VAR_WIN_InternetOption is defined

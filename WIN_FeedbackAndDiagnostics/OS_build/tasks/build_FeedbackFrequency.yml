@@ -1,0 +1,86 @@
+---
+- name: set VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=1
+  block:
+    - name: set PeriodInNanoSeconds when VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=1
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Siuf\Rules
+        name: PeriodInNanoSeconds
+        type: qword
+        state: absent
+    - name: set NumberOfSIUFInPeriod when VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=1
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Siuf\Rules
+        name: NumberOfSIUFInPeriod
+        type: dword
+        state: absent
+  when: VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency == 1
+
+- name: set VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=2
+  block:
+    - name: set PeriodInNanoSeconds when VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=2
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Siuf\Rules
+        name: PeriodInNanoSeconds
+        data: 100000000
+        type: qword
+        state: present
+    - name: set NumberOfSIUFInPeriod when VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=2
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Siuf\Rules
+        name: NumberOfSIUFInPeriod
+        type: dword
+        state: absent
+  when: VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency == 2
+
+- name: set VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=3
+  block:
+    - name: set PeriodInNanoSeconds when VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=3
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Siuf\Rules
+        name: PeriodInNanoSeconds
+        data: 864000000000
+        type: qword
+        state: present
+    - name: set NumberOfSIUFInPeriod when VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=3
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Siuf\Rules
+        name: NumberOfSIUFInPeriod
+        data: 1
+        type: dword
+        state: present
+  when: VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency == 3
+
+- name: set VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=4
+  block:
+    - name: set PeriodInNanoSeconds when VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=4
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Siuf\Rules
+        name: PeriodInNanoSeconds
+        data: 6048000000000
+        type: qword
+        state: present
+    - name: set NumberOfSIUFInPeriod when VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=4
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Siuf\Rules
+        name: NumberOfSIUFInPeriod
+        data: 1
+        type: dword
+        state: present
+  when: VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency == 4
+
+- name: set VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=5
+  block:
+    - name: set PeriodInNanoSeconds when VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=5
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Siuf\Rules
+        name: PeriodInNanoSeconds
+        type: qword
+        state: absent
+    - name: set NumberOfSIUFInPeriod when VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency=5
+      win_regedit:
+        path: HKCU:\SOFTWARE\Microsoft\Siuf\Rules
+        name: NumberOfSIUFInPeriod
+        data: 0
+        type: dword
+        state: present
+  when: VAR_WIN_FeedbackAndDiagnostics.FeedbackFrequency == 5

@@ -1,0 +1,10 @@
+---
+- name: set Visual_effects main project
+  win_regedit:
+    path: "{{ location_VisualEffects }}"
+    name: "VisualFXSetting"
+    data: "{{ VAR_WIN_VisualEffects.visual_type }}"
+    type: dword
+  when:
+    - VAR_WIN_VisualEffects.visual_type is defined
+    - VAR_WIN_VisualEffects.visual_type is not none

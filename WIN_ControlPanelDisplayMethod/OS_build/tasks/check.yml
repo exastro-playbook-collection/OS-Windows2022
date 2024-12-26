@@ -1,0 +1,16 @@
+---
+- name: set param _DisplayMethod
+  set_fact:
+    _DisplayMethod: "{{ VAR_WIN_ControlPanelDisplayMethod.DisplayMethod | upper }}"
+  when:
+    - VAR_WIN_ControlPanelDisplayMethod.DisplayMethod is defined
+    - VAR_WIN_ControlPanelDisplayMethod.DisplayMethod is not none
+
+- name: check param VAR_WIN_ControlPanelDisplayMethod.DisplayMethod
+  fail:
+    msg: "The value of the parameter VAR_WIN_ControlPanelDisplayMethod.DisplayMethod can only be one of these three (case insensitive): category, large, small."
+  when:
+    - _DisplayMethod is defined
+    - _DisplayMethod != 'CATEGORY'
+    - _DisplayMethod != 'LARGE'
+    - _DisplayMethod != 'SMALL'

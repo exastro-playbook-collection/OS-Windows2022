@@ -1,0 +1,10 @@
+---
+- name: Execute task. (check.yml)
+  include_tasks: check.yml
+  when:
+    - VAR_WIN_ControlPanelDisplayMethod is defined
+
+- name: Execute task. (build_ControlPanelDisplayMethod.yml)
+  import_tasks: build_ControlPanelDisplayMethod.yml
+  when:
+    - VAR_WIN_ControlPanelDisplayMethod is defined

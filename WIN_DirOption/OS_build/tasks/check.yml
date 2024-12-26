@@ -1,0 +1,21 @@
+---
+- name: check param VAR_WIN_DirOption.HiddenCheckedValue
+  fail:
+    msg: "The value of the parameter VAR_WIN_DirOption.HiddenCheckedValue cannot be none and the value must be a number."
+  when:
+    - VAR_WIN_DirOption.HiddenCheckedValue is defined
+    - (VAR_WIN_DirOption.HiddenCheckedValue is none) or (VAR_WIN_DirOption.HiddenCheckedValue is not number)
+
+- name: check param VAR_WIN_DirOption.Hidden
+  fail:
+    msg: "The value of the parameter VAR_WIN_DirOption.Hidden cannot be none and the value must be a number."
+  when:
+    - VAR_WIN_DirOption.Hidden is defined
+    - (VAR_WIN_DirOption.Hidden is none) or (VAR_WIN_DirOption.Hidden is not number)
+
+- name: check param VAR_WIN_DirOption.HideFileExt
+  fail:
+    msg: "The value of the parameter VAR_WIN_DirOption.HideFileExt cannot be none and the value must be a number."
+  when:
+    - VAR_WIN_DirOption.HideFileExt is defined
+    - (VAR_WIN_DirOption.HideFileExt is none) or (VAR_WIN_DirOption.HideFileExt is not number)
