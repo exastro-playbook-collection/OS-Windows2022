@@ -11,7 +11,7 @@ Windows Server 2022に関するWindows詳細情報（起動と回復）につい
 
 # Copyright
 ---------
-Copyright (c) 2023 NEC Corporation
+Copyright (c) 2025 NEC Corporation
 
 # Author Information
 ------------------

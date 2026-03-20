@@ -219,7 +219,7 @@ VAR_WIN_EnvSetting:
 
 # Copyright
 ---------
-Copyright (c) 2023 NEC Corporation
+Copyright (c) 2025 NEC Corporation
 
 # Author Information
 ------------------
