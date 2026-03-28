@@ -11,7 +11,7 @@ Windows Server 2022に関するNICチーミング設定（VLAN）についての
 
 # Copyright
 ---------
-Copyright (c) 2023 NEC Corporation
+Copyright (c) 2025 NEC Corporation
 
 # Author Information
 ------------------

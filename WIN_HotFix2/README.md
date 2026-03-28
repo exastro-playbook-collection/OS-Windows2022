@@ -16,7 +16,7 @@ WIN_HotFixと比較して以下の点で違いがあります。
 
 # Copyright
 ---------
-Copyright (c) 2023 NEC Corporation
+Copyright (c) 2025 NEC Corporation
 
 # Author Information
 ------------------

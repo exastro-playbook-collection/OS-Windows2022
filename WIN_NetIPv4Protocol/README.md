@@ -11,7 +11,7 @@ Windows Server 2022に関するIPv4の設定についての情報の取得およ
 
 # Copyright
 ---------
-Copyright (c) 2023 NEC Corporation
+Copyright (c) 2025 NEC Corporation
 
 # Author Information
 ------------------

@@ -11,7 +11,7 @@ Windows Server 2022に関するWindows基本設定（コンピュータ名）に
 
 # Copyright
 ---------
-Copyright (c) 2023 NEC Corporation
+Copyright (c) 2025 NEC Corporation
 
 # Author Information
 ------------------

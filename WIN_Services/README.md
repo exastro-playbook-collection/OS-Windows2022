@@ -11,7 +11,7 @@ Windows Server 2022に関するWindowsサービスについての情報の取得
 
 # Copyright
 ---------
-Copyright (c) 2023 NEC Corporation
+Copyright (c) 2025 NEC Corporation
 
 # Author Information
 ------------------
